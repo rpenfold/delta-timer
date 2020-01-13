@@ -1,15 +1,15 @@
 {
-  "name": "lyv-delta-timer",
-  "version": "1.0.0",
+  "name": "delta-timer",
+  "version": "0.1",
   "description": "",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "start": "tsc ./src/index ./dist --watch",
+    "build": "tsc ./src/index ./dist"
   },
-  "dependencies": {},
   "devDependencies": {
-    "parcel-bundler": "^1.6.1"
+    "tsc": "1.20150623.0",
+    "typescript": "3.7.4"
   },
   "keywords": []
 }
