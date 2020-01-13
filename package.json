@@ -4,13 +4,14 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "start": "tsc ./src/index --watch",
-    "build": "tsc ./src/index.ts",
+    "start": "tsc -p ./tsconfig.json --watch",
+    "build": "tsc -p ./tsconfig.json",
     "lint": "echo lint not configured",
     "test": "jest src",
     "test:watch": "jest src --watch"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.25",
     "jest": "^24.9.0",
     "tsc": "1.20150623.0",
     "typescript": "3.7.4"
