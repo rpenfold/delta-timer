@@ -1,13 +1,17 @@
 {
   "name": "delta-timer",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.html",
+  "main": "./dist/index.js",
   "scripts": {
-    "start": "tsc ./src/index ./dist --watch",
-    "build": "tsc ./src/index ./dist"
+    "start": "tsc ./src/index --watch",
+    "build": "tsc ./src/index.ts",
+    "lint": "echo lint not configured",
+    "test": "jest src",
+    "test:watch": "jest src --watch"
   },
   "devDependencies": {
+    "jest": "^24.9.0",
     "tsc": "1.20150623.0",
     "typescript": "3.7.4"
   },
