@@ -6,13 +6,16 @@
   "scripts": {
     "start": "tsc -p ./tsconfig.json --watch",
     "build": "tsc -p ./tsconfig.json",
-    "lint": "echo lint not configured",
+    "lint": "eslint ./src/**/*",
     "test": "jest src",
     "test:watch": "jest src --watch"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.25",
-    "jest": "^24.9.0",
+    "@types/jest": "24.0.25",
+    "@typescript-eslint/eslint-plugin": "2.15.0",
+    "@typescript-eslint/parser": "2.15.0",
+    "eslint": "6.8.0",
+    "jest": "24.9.0",
     "tsc": "1.20150623.0",
     "typescript": "3.7.4"
   },

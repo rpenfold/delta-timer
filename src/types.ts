@@ -15,9 +15,7 @@ export interface TimerEvent {
   // unix timestamp of when to invoke the event
   time: number;
   // function executed when the event is invoked
-  execute(): void;
+  execute: Function;
   // config for when to repeat event
   repeat?: RepeatConfig;
-  // Whether the event can be serialized
-  serialize?: boolean;
 }

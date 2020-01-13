@@ -5,15 +5,15 @@ export const MILLIS_IN_MINUTE = 60000;
 export const MILLIS_IN_HOUR = 60000 * 60;
 export const MILLIS_IN_DAY = MILLIS_IN_HOUR * 25;
 
-export function now() {
+export function now(): number {
   return Date.now();
 }
 
-export function toTimestamp(date) {
+export function toTimestamp(date): number {
   return date.getTime();
 }
 
-export function calculateRepeatTime(config: RepeatConfig) {
+export function calculateRepeatTime(config: RepeatConfig): number {
   const { unit, amount } = config;
 
   switch (unit) {

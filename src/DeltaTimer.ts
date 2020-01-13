@@ -5,7 +5,7 @@ import EventQueue from "./EventQueue";
 interface DeltaTimerInterface {
   checkIsRunning(): boolean;
   clear(): void;
-  insert(execute: any, time: number, repeat?: RepeatConfig): void;
+  insert(execute: Function, time: number, repeat?: RepeatConfig): void;
   stop(): void;
   start(): void;
 }
@@ -27,7 +27,7 @@ class DeltaTimer implements DeltaTimerInterface {
    * invoked within the current polling period it will trigger another polling
    * period. If there is an event to invoke it will queue it up.
    */
-  private processNextEvent() {
+  private processNextEvent(): void {
     const nextEvent = this.queue.getNextEvent();
 
     if (!nextEvent) {
@@ -36,7 +36,8 @@ class DeltaTimer implements DeltaTimerInterface {
       return;
     }
 
-    const delta = nextEvent.time - now();
+    const time = nextEvent[0].time;
+    const delta = time - now();
 
     if (delta > this.pollingFrequency) {
       // Next event is beyond polling frequency; poll again
@@ -45,7 +46,7 @@ class DeltaTimer implements DeltaTimerInterface {
       // Prepare to execute upcoming event
       this.timeout = setTimeout(() => {
         nextEvent.forEach(this.executeEvent);
-        this.queue.deleteEventsAtTime(nextEvent.time);
+        this.queue.deleteEventsAtTime(time);
         this.processNextEvent();
       }, delta);
     }
@@ -54,7 +55,7 @@ class DeltaTimer implements DeltaTimerInterface {
   /**
    * Executes event and creates next iteration if repeat is configured on event
    */
-  private executeEvent = (event: TimerEvent) => {
+  private executeEvent = (event: TimerEvent): void => {
     const { execute, repeat } = event;
     execute();
 
@@ -65,9 +66,9 @@ class DeltaTimer implements DeltaTimerInterface {
     }
   };
 
-  public checkIsRunning = () => this.isRunning;
+  public checkIsRunning = (): boolean => this.isRunning;
 
-  public clear = () => {
+  public clear = (): void => {
     this.queue.clear();
     if (this.timeout) {
       clearTimeout(this.timeout);
@@ -79,11 +80,10 @@ class DeltaTimer implements DeltaTimerInterface {
    * descending.
    */
   public insert = (
-    execute: any,
+    execute: Function,
     time: number,
-    repeat?: RepeatConfig,
-    canSerialize?: boolean
-  ) => {
+    repeat?: RepeatConfig
+  ): void => {
     const result = this.queue.insertEvent(time, { time, execute, repeat });
 
     const { isNextEvent, timeUntil } = result;
@@ -98,7 +98,7 @@ class DeltaTimer implements DeltaTimerInterface {
     }
   };
 
-  public start = () => {
+  public start = (): void => {
     if (this.isRunning) return;
 
     // Delete all events that should have occured while the timer
@@ -108,7 +108,7 @@ class DeltaTimer implements DeltaTimerInterface {
     this.processNextEvent();
   };
 
-  public stop = () => {
+  public stop = (): void => {
     if (!this.isRunning) return;
 
     if (this.timeout) {

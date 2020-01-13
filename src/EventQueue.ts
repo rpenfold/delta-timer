@@ -1,7 +1,7 @@
 import { TimerEvent } from "./types";
 import { now } from "./utils";
 
-interface EventQueuePushResult {
+interface EventQueueInsertResult {
   isNextEvent: boolean;
   timeUntil: number;
 }
@@ -12,18 +12,18 @@ interface EventQueueInterface {
   deleteEventsAtTime(time: number): void;
   getNextEventTime(): number;
   getNextEvent(): Array<TimerEvent>;
-  insertEvent(time: number, event: TimerEvent): EventQueuePushResult;
+  insertEvent(time: number, event: TimerEvent): EventQueueInsertResult;
 }
 
 class EventQueue implements EventQueueInterface {
   // uses an object because keys are always sorted ascending
   private queue: object;
 
-  clear = () => {
+  clear = (): void => {
     this.queue = {};
   };
 
-  cleanup = () => {
+  cleanup = (): void => {
     const currentTime = now();
 
     for (const time of Object.keys(this.queue)) {
@@ -35,7 +35,7 @@ class EventQueue implements EventQueueInterface {
     }
   };
 
-  insertEvent = (time: number, event: TimerEvent) => {
+  insertEvent = (time: number, event: TimerEvent): EventQueueInsertResult => {
     const currentTime = now();
 
     if (time < currentTime) {
@@ -57,13 +57,15 @@ class EventQueue implements EventQueueInterface {
     };
   };
 
-  deleteEventsAtTime = (time: number) => {
+  deleteEventsAtTime = (time: number): void => {
     delete this.queue[time];
   };
 
-  getNextEvent = () => this.queue[Object.keys(this.queue)[0]];
+  getNextEvent = (): Array<TimerEvent> =>
+    this.queue[Object.keys(this.queue)[0]];
 
-  getNextEventTime = () => Number(Object.keys(this.queue)[0]);
+  getNextEventTime = (): number => 
+    Number(Object.keys(this.queue)[0]);
 }
 
 export default EventQueue;
