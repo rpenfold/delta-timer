@@ -1,9 +1,9 @@
 {
   "name": "delta-clock",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "description": "A tool for scheduling executable events",
   "main": "./dist/index.js",
-  "license": "./LICENSE",
+  "license": "MIT License",
   "scripts": {
     "start": "tsc -p ./tsconfig.json --watch",
     "build": "tsc -p ./tsconfig.json",
