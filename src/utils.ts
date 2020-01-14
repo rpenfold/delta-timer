@@ -13,6 +13,7 @@ export function toTimestamp(date): number {
   return date.getTime();
 }
 
+// TODO: may want to genericize the name
 export function calculateRepeatTime(config: RepeatConfig): number {
   const { unit, amount } = config;
 
