@@ -1,7 +1,7 @@
 {
-  "name": "delta-timer",
+  "name": "delta-clock",
   "version": "0.1.0",
-  "description": "",
+  "description": "A tool for scheduling executable events",
   "main": "./dist/index.js",
   "scripts": {
     "start": "tsc -p ./tsconfig.json --watch",
@@ -20,5 +20,10 @@
     "tsc": "1.20150623.0",
     "typescript": "3.7.4"
   },
-  "keywords": []
+  "keywords": [
+    "deltaclock",
+    "timeout",
+    "timer",
+    "react-native"
+  ]
 }
