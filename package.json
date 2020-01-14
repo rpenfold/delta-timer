@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "A tool for scheduling executable events",
   "main": "./dist/index.js",
+  "license": "./LICENSE",
   "scripts": {
     "start": "tsc -p ./tsconfig.json --watch",
     "build": "tsc -p ./tsconfig.json",
