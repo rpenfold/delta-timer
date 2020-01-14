@@ -2,6 +2,7 @@ import { TimerEvent } from "./types";
 import { now } from "./utils";
 
 interface EventQueueInsertResult {
+  cancel(): void;
   isNextEvent: boolean;
   timeUntil: number;
 }
@@ -52,10 +53,22 @@ class EventQueue implements EventQueueInterface {
     }
 
     return {
+      cancel: (): void => this.deleteEvent(time, queuedEvents.length - 1),
       isNextEvent: time === this.getNextEventTime(),
       timeUntil: time - currentTime
     };
   };
+
+  private deleteEvent = (time: number, index: number): void => {
+    if (!this.queue[time]) return;
+
+    if (this.queue[time].length === 1) {
+      delete this.queue[time];
+      return
+    }
+    
+    this.queue[time].splice(index, 1);
+  }
 
   deleteEventsAtTime = (time: number): void => {
     delete this.queue[time];
