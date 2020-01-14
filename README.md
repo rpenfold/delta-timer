@@ -1,4 +1,6 @@
-# Delta Timer
+# Delta Timer (ALPHA)
+
+## This tool is still under development.
 
 Delta-timer is a lightweight tool for scheduling events that are executed via a single timeout at a time. It polls for events at a specified interval, and queues them up if the interval is less than the polling frequency. This is useful in evironments like react-native Android where you cannot set long running timers. Instead you can schedule an event to be executed at a specified time and the delta timer will only use short timers.
 
