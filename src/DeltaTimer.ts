@@ -5,9 +5,13 @@ import EventQueue from "./EventQueue";
 interface DeltaTimerInterface {
   checkIsRunning(): boolean;
   clear(): void;
-  insert(execute: Function, time: number, repeat?: RepeatConfig): void;
+  schedule(execute: Function, time: number, repeat?: RepeatConfig): DeltaTimerScheduleResult;
   stop(): void;
   start(): void;
+}
+
+interface DeltaTimerScheduleResult {
+  cancel(): void;
 }
 
 class DeltaTimer implements DeltaTimerInterface {
@@ -62,7 +66,7 @@ class DeltaTimer implements DeltaTimerInterface {
     if (repeat) {
       // Create event for next iteration
       const nextTimestamp = calculateRepeatTime(repeat);
-      this.insert(execute, nextTimestamp, repeat);
+      this.schedule(execute, nextTimestamp, repeat);
     }
   };
 
@@ -76,26 +80,30 @@ class DeltaTimer implements DeltaTimerInterface {
   };
 
   /**
-   * Inserts an event in the event stack at the correct position, sorted by time
-   * descending.
+   * Schedules an event in the event queue.
    */
-  public insert = (
+  public schedule = (
     execute: Function,
     time: number,
     repeat?: RepeatConfig
-  ): void => {
+  ): DeltaTimerScheduleResult => {
     const result = this.queue.insertEvent(time, { time, execute, repeat });
 
-    const { isNextEvent, timeUntil } = result;
+    const { cancel, isNextEvent, timeUntil } = result;
 
     if (isNextEvent) {
       // stop current timeout
       clearTimeout(this.timeout);
       // set new timeout
-      const delta =
-        timeUntil > this.pollingFrequency ? this.pollingFrequency : timeUntil;
+      const delta = timeUntil > this.pollingFrequency
+        ? this.pollingFrequency
+        : timeUntil;
       setTimeout(this.processNextEvent, delta);
     }
+
+    return {
+      cancel
+    };
   };
 
   public start = (): void => {

@@ -8,8 +8,8 @@ To schedule an event that repeats you just need to pass in the repeat configurat
 
 ```javascript
 const repeatConfig = {
-    unit: "minutes", // milliseconds|seconds|minutes|hours|days
-    amount: 10
+  unit: "minutes", // milliseconds|seconds|minutes|hours|days
+  amount: 10
 };
 
 deltaTimer.schedule(callback, timestamp, repeatConfig);
