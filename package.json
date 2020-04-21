@@ -1,0 +1,32 @@
+{
+  "name": "delta-clock",
+  "version": "0.1.2",
+  "description": "A tool for scheduling executable events",
+  "main": "./dist/index.js",
+  "license": "MIT License",
+  "scripts": {
+    "start": "tsc -p ./tsconfig.json --watch",
+    "build": "tsc -p ./tsconfig.json",
+    "format": "prettier --write ./**/*",
+    "lint": "eslint ./src/**/*",
+    "test": "jest src",
+    "test:watch": "jest src --watch"
+  },
+  "devDependencies": {
+    "@types/jest": "24.0.25",
+    "@typescript-eslint/eslint-plugin": "2.15.0",
+    "@typescript-eslint/parser": "2.15.0",
+    "eslint": "6.8.0",
+    "jest": "^25.4.0",
+    "prettier": "1.19.1",
+    "ts-jest": "^25.4.0",
+    "typescript": "3.7.4"
+  },
+  "keywords": [
+    "deltaclock",
+    "timeout",
+    "timer",
+    "react-native"
+  ],
+  "dependencies": {}
+}
