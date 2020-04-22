@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Delta Timer - Demo</title>
+    <meta name="description" content="delta-timer-demo">
+</head>
+
+<body>
+    <style>
+        .scene {
+            background: lightblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .clock {
+            height: 200px;
+            width: 200px;
+            background: red;
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        .face {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            height: 100%;
+            width: 100%;
+        }
+
+        .hand-hour {
+            align-items: center;
+            display: flex;
+            transform: rotate(-90deg);
+        }
+
+        .hand-hour:before {
+            background: #555;
+            border-radius: 5px;
+            content: "";
+            height: 10px;
+            width: 40px;
+            margin-left: 0;
+            position: absolute;
+        }
+
+        .hand-minute {
+            align-items: center;
+            display: flex;
+            transform: rotate(-90deg);
+        }
+
+        .hand-minute:before {
+            background: #555;
+            border-radius: 5px;
+            content: "";
+            height: 10px;
+            width: 70px;
+            margin-left: 0;
+            position: absolute;
+        }
+
+        .marker-12 {
+            transform: rotate(-90deg);
+        }
+
+        .marker-1 {
+            transform: rotate(-60deg);
+        }
+
+        .marker-2 {
+            transform: rotate(-30deg);
+        }
+
+        .marker-3 {
+            transform: rotate(0);
+        }
+
+        .marker-4 {
+            transform: rotate(30deg);
+        }
+
+        .marker-5 {
+            transform: rotate(60deg);
+        }
+
+        .marker-6 {
+            transform: rotate(90deg);
+        }
+
+        .marker-7 {
+            transform: rotate(120deg);
+        }
+
+        .marker-8 {
+            transform: rotate(150deg);
+        }
+
+        .marker-9 {
+            transform: rotate(180deg);
+        }
+
+        .marker-10 {
+            transform: rotate(210deg);
+        }
+
+        .marker-11 {
+            transform: rotate(240deg);
+        }
+
+        .marker {
+            align-items: center;
+            display: flex;
+        }
+
+        .marker:after {
+            background: #555;
+            border-radius: 2px;
+            content: "";
+            height: 5px;
+            width: 12px;
+            margin-left: 75px;
+            position: absolute;
+        }
+
+        .marker-sm:after {
+            width: 6px;
+            margin-left: 80px;
+        }
+    </style>
+
+    <div class="scene">
+        <div class="clock">
+            <div class="face">
+                <div class="marker marker-12"></div>
+                <div class="marker marker-1 marker-sm"></div>
+                <div class="marker marker-2 marker-sm"></div>
+                <div class="marker marker-3"></div>
+                <div class="marker marker-4 marker-sm"></div>
+                <div class="marker marker-5 marker-sm"></div>
+                <div class="marker marker-6"></div>
+                <div class="marker marker-7 marker-sm"></div>
+                <div class="marker marker-8 marker-sm"></div>
+                <div class="marker marker-9"></div>
+                <div class="marker marker-10 marker-sm"></div>
+                <div class="marker marker-11 marker-sm"></div>
+                <div id="hours" class="hand-hour"></div>
+                <div id="minutes" class="hand-minute"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const minutes = document.getElementById("minutes");
+        const hours = document.getElementById("hours");
+        let m = 0;
+        let h = 0;
+
+        function minutesToDegrees(minutes, offset) {
+            return (minutes * 6) + offset;
+        }
+
+        function minutesToHourDegrees(minutes, offset) {
+            return (minutes / 2) + offset;
+        }
+
+        setInterval(() => {
+            minutes.style.transform = `rotate(${minutesToDegrees(m++, -90)}deg)`;
+            hours.style.transform = `rotate(${minutesToHourDegrees(m, -90)}deg)`;
+        }, 100);
+    </script>
+</body>
+
+</html>
